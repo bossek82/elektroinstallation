@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Visualization</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.24.0/cytoscape.min.js"></script>
+    <style>
+        #cy {
+            width: 100%;
+            height: 100vh;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="cy"></div>
+    <script>
+        const cy = cytoscape({
+            container: document.getElementById('cy'),
+
+            elements: [
+                // Nodes
+                { data: { id: 'Hauptsicherung', label: 'Hauptsicherung\nStrom: 63A' } },
+                { data: { id: 'Stromzähler', label: 'Stromzähler' } },
+                { data: { id: '3fach Sicherung', label: '3fach Sicherung' } },
+                { data: { id: 'Verteilung', label: 'Verteilung' } },
+
+                // Edges
+                { data: { source: 'Hauptsicherung', target: 'Stromzähler' } },
+                { data: { source: 'Stromzähler', target: '3fach Sicherung' } },
+                { data: { source: '3fach Sicherung', target: 'Verteilung' } }
+            ],
+
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                        'background-color': '#0074D9',
+                        'label': 'data(label)',
+                        'color': '#fff',
+                        'text-valign': 'center',
+                        'text-halign': 'center',
+                        'font-size': '12px'
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 2,
+                        'line-color': '#0074D9',
+                        'target-arrow-color': '#0074D9',
+                        'target-arrow-shape': 'triangle'
+                    }
+                }
+            ],
+
+            layout: {
+                name: 'breadthfirst',
+                directed: true,
+                padding: 10
+            }
+        });
+    </script>
+</body>
+</html>
